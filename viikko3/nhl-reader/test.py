@@ -1,0 +1,1 @@
+print('TOIMIIKO TÄMÄ PASKA')
