@@ -4,6 +4,7 @@ from kauppa import Kauppa
 from viitegeneraattori import Viitegeneraattori
 
 
+
 class TestKauppa(unittest.TestCase):
     def setUp(self):
         pass
