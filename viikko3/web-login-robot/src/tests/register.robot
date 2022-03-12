@@ -43,6 +43,33 @@ Register With Nonmatching Password And Password Confirmation
     Submit Register Credentials
     Register Should Fail With Message  Password and confirmation do not match
 
+Login After Successful Registration
+    Set Username   laad
+    Set Password    kapton812
+    Confirm Password  kapton812
+    Submit Register Credentials
+    Register Should Succeed
+    Go To Login Page
+    Login Page Should Be Open
+    Set Username    laad
+    Set Password    kapton812
+    Click Button    Login
+    Main Page Should Be Open
+
+
+Login After Failed Registration
+    Set Username    johnson
+    Set Password    laplacian822
+    Confirm Password  laplacian811
+    Submit Register Credentials
+    Register Should Fail With Message  Password and confirmation do not match
+    Go To Login Page
+    Login Page Should Be Open
+    Set Username    johsnon
+    Set Password    laplacian822
+    Click Button    Login
+    Login Page Should Be Open
+    Login Should Fail With Message  Invalid username or password
 
 *** Keywords ***
 
@@ -73,3 +100,8 @@ Register Should Fail With Message
     [Arguments]   ${message}
     Register Page Should Be Open
     Page Should Contain     ${message}
+
+Login Should Fail With Message
+    [Arguments]  ${message}
+    Login Page Should Be Open
+    Page Should Contain  ${message}
