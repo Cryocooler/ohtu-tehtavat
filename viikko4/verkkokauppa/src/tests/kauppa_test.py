@@ -31,7 +31,7 @@ class TestKauppa(unittest.TestCase):
                 return Tuote(2, 'pesto', 2)
             if tuote_id == 3:
                 return Tuote(3, 'brooklyn lager', 8)
-            
+
 
         self.varasto_mock.saldo.side_effect = varasto_saldo
         self.varasto_mock.hae_tuote.side_effect = varasto_hae_tuote
@@ -67,24 +67,7 @@ class TestKauppa(unittest.TestCase):
         self.pankki_mock.tilisiirto.assert_called()
         # toistaiseksi ei välitetä kutsuun liittyvistä argumenteista
     def test_ostokset_ppankin_tilisiirto_oikeilla_argumenteilla(self):
-        #self.viitegeneraattori_mock.uusi.return_value = 42
-         # tehdään toteutus saldo-metodille
-        # def varasto_saldo(tuote_id):
-        #     if tuote_id == 1:
-        #         return 10
 
-        # # tehdään toteutus hae_tuote-metodille
-        # def varasto_hae_tuote(tuote_id):
-        #     if tuote_id == 1:
-        #         return Tuote(1, "maito", 5)
-
-        # otetaan toteutukset käyttöön
-        # self.varasto_mock.saldo.side_effect = varasto_saldo
-        # self.varasto_mock.hae_tuote.side_effect = varasto_hae_tuote
-
-        # alustetaan kauppa
-
-        # tehdään ostokset
         self.kauppa.aloita_asiointi()
         self.kauppa.lisaa_koriin(1)
         self.kauppa.tilimaksu("pekka", "12345")
@@ -111,7 +94,7 @@ class TestKauppa(unittest.TestCase):
 
         self.pankki_mock.tilisiirto.assert_called_with("pekka", 42, "12345", self.kauppa._kaupan_tili, 10)
 
-    def test_ostokset_tuote_jolla_ei_saldoa_ei_lisata_ostoskoriin_ja_tilsiirron_summaan(self):
+    def test_ostokset_tuote_jolla_ei_saldoa_ei_lisata_ostoskoriin_ja_tilisiirron_summaan(self):
 
         self.kauppa.aloita_asiointi()
         self.kauppa.lisaa_koriin(1)
@@ -120,6 +103,31 @@ class TestKauppa(unittest.TestCase):
         self.pankki_mock.tilisiirto.assert_called_with("pekka", 42, "12345", self.kauppa._kaupan_tili, 5)
 
 
+    def test_aiemmat_ostoskorit_eivat_sisally_uusiin_ostoskoreihin(self):
+
+        self.kauppa.aloita_asiointi()
+        self.kauppa.lisaa_koriin(1)
+        self.kauppa.tilimaksu("janne","123456")
+        self.pankki_mock.tilisiirto.assert_called_with("janne", 42, "123456", self.kauppa._kaupan_tili, 5)
+
+        self.kauppa.aloita_asiointi()
+        self.kauppa.lisaa_koriin(2)
+        self.kauppa.tilimaksu("janne","123456")
+        self.pankki_mock.tilisiirto.assert_called_with("janne", 42, "123456", self.kauppa._kaupan_tili, 2)
+
+        # tarkistetaan että tässä vaiheessa viitegeneraattorin metodia uusi on kutsuttu kaksi kertaa
+    def test_pyydetaan_uusi_viite_jokaiseen_maksuun(self):
+
+        self.kauppa.aloita_asiointi()
+        self.kauppa.lisaa_koriin(1)
+        self.kauppa.tilimaksu("janne","123456")
+
+        self.assertEqual(self.viitegeneraattori_mock.uusi.call_count, 1)
 
 
-# #
+        self.kauppa.aloita_asiointi()
+        self.kauppa.lisaa_koriin(2)
+        self.kauppa.tilimaksu("janne","123456")
+
+        self.assertEqual(self.viitegeneraattori_mock.uusi.call_count, 2)
+
