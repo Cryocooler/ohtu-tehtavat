@@ -14,14 +14,15 @@ Register With Already Taken Username And Valid Password
 
 Register With Too Short Username And Valid Password
     Input Credentials   ja     kapton812
-    Output Should Contain   Username and password must contain enough characters
+    Output Should Contain   Username is too short
 
 Register With Valid Username and Too Short Password
     Input Credentials  jasper  kel
-    Output Should Contain   Username and password must contain enough characters
+    Output Should Contain   Password is too short
 
 Register With Valid Username and Long Enough Password Containing Only Letters
-    Input Credentials  jasper  kurtosis822
+    Input Credentials  jasper  kurtosisdamnit
+    Output Should Contain   Password must contain letters a-z and numbers
 
 *** Keywords ***
 Input New Command And Create User
