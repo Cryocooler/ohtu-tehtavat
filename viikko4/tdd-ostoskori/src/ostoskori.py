@@ -38,8 +38,10 @@ class Ostoskori:
         # poistaa tuotteen
         #loop-implementaatio
         for ostos in self._ostokset:
-            if ostos.tuotteen_nimi() == poistettava.nimi():
+            if ostos.tuotteen_nimi() == poistettava.nimi() and ostos.lukumaara() > 1:
                 ostos.muuta_lukumaaraa(-1)
+            else:
+                self._ostokset.remove(ostos)
 
     def tyhjenna(self):
         pass
