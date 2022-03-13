@@ -48,12 +48,17 @@ for pr in products:
 
 tlist = ["abcd", "bam", "could", "milk"]
 
-check = 0
-for l in tlist:
-    if l == 'milk':
-        check +=1
+# check = 0
+# for l in tlist:
+#     if l == 'milk':
+#         check +=1
 
-if check == 0:
-    print('cool this works')
-elif check != 0:
-    print('there was a match')
+# if check == 0:
+#     print('cool this works')
+# elif check != 0:
+#     print('there was a match')
+
+for pr in products:
+    if pr.name() == 'cola':
+        products.remove(pr)
+print('removed product', products)

@@ -29,7 +29,6 @@ class Ostoskori:
             self._ostokset.append(Ostos(lisattava))
         else:
             #etsi korista ostos-olio jossa tuotteen nimi ja kasvata määrää
-
             for ostos in self._ostokset:
                 if ostos.tuotteen_nimi() == lisattava.nimi():
                    ostos.muuta_lukumaaraa(1)
@@ -37,7 +36,10 @@ class Ostoskori:
 
     def poista_tuote(self, poistettava: Tuote):
         # poistaa tuotteen
-        pass
+        #loop-implementaatio
+        for ostos in self._ostokset:
+            if ostos.tuotteen_nimi() == poistettava.nimi():
+                ostos.muuta_lukumaaraa(-1)
 
     def tyhjenna(self):
         pass
