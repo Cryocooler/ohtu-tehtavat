@@ -24,8 +24,16 @@ class Ostoskori:
         # kertoo korissa olevien ostosten yhteenlasketun hinnan
 
     def lisaa_tuote(self, lisattava: Tuote):
-        # lisää tuotteen
-        self._ostokset.append(Ostos(lisattava))
+        # lisää tuotteen jos tuotetta ei löydy ostoksista
+        if len(list(filter(lambda x: x.tuotteen_nimi() == lisattava.nimi(), self._ostokset))) == 0:
+            self._ostokset.append(Ostos(lisattava))
+        else:
+            #etsi korista ostos-olio jossa tuotteen nimi ja kasvata määrää
+
+            for ostos in self._ostokset:
+                if ostos.tuotteen_nimi() == lisattava.nimi():
+                   ostos.muuta_lukumaaraa(1)
+
 
     def poista_tuote(self, poistettava: Tuote):
         # poistaa tuotteen
@@ -36,7 +44,6 @@ class Ostoskori:
         # tyhjentää ostoskorin
 
     def ostokset(self):
-        
         return self._ostokset
         # palauttaa listan jossa on korissa olevat ostos-oliot
         # kukin ostos-olio siis kertoo mistä tuotteesta on kyse JA kuinka monta kappaletta kyseistä tuotetta korissa on

@@ -85,3 +85,16 @@ class TestOstoskori(unittest.TestCase):
 
         ostokset = self.kori.ostokset()
         self.assertEqual(len(ostokset), 2)
+
+    #step11
+    def test_kaksi_samaa_tuotetta_yhdistetaan_samaan_ostokseen(self):
+        self.kori.lisaa_tuote(self._apa)
+        self.kori.lisaa_tuote(self._apa)
+
+        ostokset = self.kori.ostokset()
+        print('ostokset', ostokset)
+        ostos = self.kori.ostokset()[0]
+
+        self.assertEqual(self.kori.tavaroita_korissa(), 2)
+        self.assertEqual(len(ostokset), 1)
+        self.assertEqual(ostos.tuotteen_nimi(), 'APA')
