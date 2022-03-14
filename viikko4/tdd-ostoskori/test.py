@@ -1,3 +1,4 @@
+from email.policy import default
 from functools import reduce
 
 class Product:
@@ -62,3 +63,38 @@ for pr in products:
     if pr.name() == 'cola':
         products.remove(pr)
 print('removed product', products)
+
+# class Location:
+#     def __init__(self, name :str, code :int):
+
+#         if not isinstance(name, str):
+#             raise Exception('name must be a string.')
+#         self.name = name
+#         self.code = code
+
+
+
+
+# l1 = Location(123,'lol')
+
+# print('####Constructor with def arg and instance')
+# print(l1.name)
+# print(l1.code)
+
+
+### dynamic list
+
+# n_list = [0] * 5
+# list0 = []
+# print('listan kapasiteetti', len(list0))
+
+# n_list[len(n_list)-1] = 3
+
+# print(n_list)
+
+a = [1,2,3,4,5]
+
+print(str(a[:len(a)]).join("{}"))
+
+rts = ', '.join(str(alkio) for alkio in a)
+print(rts)

@@ -35,6 +35,7 @@ class TestIntJoukko(unittest.TestCase):
     def test_sama_luku_menee_joukkoon_vaan_kerran(self):
         self.joukko.lisaa(10)
         self.joukko.lisaa(3)
+        self.joukko.lisaa(3)
         self.assertEqual(self.joukko.mahtavuus(), 2)
 
     def test_vain_lisatyt_luvut_loytyvat(self):
