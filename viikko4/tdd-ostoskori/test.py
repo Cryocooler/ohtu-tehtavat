@@ -98,3 +98,14 @@ print(str(a[:len(a)]).join("{}"))
 
 rts = ', '.join(str(alkio) for alkio in a)
 print(rts)
+
+pricel = {1 :'Love-All', 2: 'Fifteen-All'}
+
+score = ""
+
+p1_pt = 1
+
+p1_score = pricel[p1_pt]
+print((p1_score))
+
+print(list(pricel.keys()))
