@@ -8,7 +8,7 @@ def main():
     stats = Statistics(reader)
 
     matcher = And(
-    Not(HasAtLeast(1, "goals")),
+    HasFewerThan(1, "goals"),
     PlaysIn("NYR")
 )
 
